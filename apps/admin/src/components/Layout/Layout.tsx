@@ -11,7 +11,7 @@ import {
   VStack,
   useDisclosure
 } from '@chakra-ui/react'
-import { useOrderCloudContext } from '@rwatt451/ordercloud-react'
+import { useOrderCloudContext } from '@ordercloud/react-sdk'
 import 'overlayscrollbars/overlayscrollbars.css'
 import { FC, Fragment, PropsWithChildren, forwardRef, useEffect, useMemo, useRef } from 'react'
 import { TbPalette } from 'react-icons/tb'
@@ -31,6 +31,7 @@ export const NavButton = forwardRef<ButtonProps, NavButtonProps>(({ to, ...props
   const { pathname } = useLocation()
 
   const isActive = useMemo(() => {
+    if(!to) return false
     return matchPath({ path: to, end: false }, pathname) !== null
   }, [pathname, to])
 
