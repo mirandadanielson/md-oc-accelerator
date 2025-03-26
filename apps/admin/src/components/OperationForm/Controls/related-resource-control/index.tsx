@@ -4,7 +4,7 @@ import { BaseProps } from '../form-control'
 import { SelectControl } from '../select-control'
 import { Text } from '@chakra-ui/react'
 import { IRelatedOpData } from '../../../../config/related-resources'
-import { useOcResourceList, useHasAccess } from '@rwatt451/ordercloud-react'
+import { useOcResourceList, useHasAccess } from '@ordercloud/react-sdk'
 import InputControl from '../input-control'
 
 interface IRelatedResourceControl extends BaseProps {
@@ -42,7 +42,7 @@ export const RelatedResourceControl: FC<IRelatedResourceControl> = ({
 
   const dataQuery = useOcResourceList(
     operationInfo?.operationId?.split('.')[0] || '',
-    { search: inputValue },
+    { search: inputValue, ...operationInfo?.filters },
     operationInfo?.parameters,
     {
       staleTime: 300000, // 5 min

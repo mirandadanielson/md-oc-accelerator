@@ -1,12 +1,10 @@
 import { FC, useCallback } from 'react'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import { IOrderCloudErrorContext, OrderCloudProvider } from '@rwatt451/ordercloud-react'
+import { IOrderCloudErrorContext, OrderCloudProvider } from '@ordercloud/react-sdk'
 import {
   ALLOW_ANONYMOUS,
   BASE_API_URL,
   CLIENT_ID,
-  CUSTOM_SCOPE,
-  SCOPE,
 } from '../constants/constants'
 import { useToast } from '@chakra-ui/react'
 import { OrderCloudError } from 'ordercloud-javascript-sdk'
@@ -42,8 +40,8 @@ const AppProvider: FC = () => {
     <OrderCloudProvider
       baseApiUrl={BASE_API_URL}
       clientId={CLIENT_ID}
-      scope={SCOPE}
-      customScope={CUSTOM_SCOPE}
+      scope={[]}
+      customScope={[]}
       allowAnonymous={ALLOW_ANONYMOUS}
       defaultErrorHandler={defaultErrorHandler}
       xpSchemas={schemaObject}

@@ -67,14 +67,12 @@ Resource list and detail views will display all native properties on a resource 
 ```bash
 VITE_APP_ORDERCLOUD_BASE_API_URL="https://sandboxapi.ordercloud.io"
 VITE_APP_ORDERCLOUD_CLIENT_ID="********-****-****-****-************"
-VITE_APP_ORDERCLOUD_SCOPE="OrderAdmin ProductAdmin CatalogAdmin AdminUserAdmin AdminUserGroupAdmin SupplierAdmin BuyerAdmin"
 VITE_APP_NAME="OrderCloud Admin Application"
 ```
 | Variable                            | Description                                                                                                       |
 | ----------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
 | `VITE_APP_ORDERCLOUD_BASE_API_URL`  | Base OrderCloud API URL                                          |
 | `VITE_APP_ORDERCLOUD_CLIENT_ID`     | Admin Client ID                                                                                                   |
-| `VITE_APP_ORDERCLOUD_SCOPE`         | The ID for your OrderCloud Marketplace                                                                            |
 | `VITE_APP_NAME`                     | Name of the application title                                                                                     |
 
 2. Run Vite in development mode
@@ -91,7 +89,7 @@ Milestone 2 will expand OrderCloud API coverage and add assignment functionality
 
 ## References
 - [OrderCloud Javascript SDK](https://www.npmjs.com/package/ordercloud-javascript-sdk)
-- [OrderCloud React](https://www.npmjs.com/package/@rwatt451/ordercloud-react)
+- [OrderCloud React SDK](https://www.npmjs.com/package/@ordercloud/react-sdk)
 - [OrderCloud API Reference](https://ordercloud.io/api-reference)
 - [React Hook Form](https://react-hook-form.com/)
 - [Tanstack React Table](https://tanstack.com/table)

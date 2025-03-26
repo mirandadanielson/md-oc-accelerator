@@ -1,5 +1,5 @@
 import { Box, Button, Flex, HStack, useDisclosure, useToast } from '@chakra-ui/react'
-import { useColumns, useDeleteOcResource, useHasAccess } from '@rwatt451/ordercloud-react'
+import { useColumns, useDeleteOcResource, useHasAccess } from '@ordercloud/react-sdk'
 import {
   ColumnFiltersState,
   PaginationState,
@@ -38,16 +38,19 @@ interface ResourceListProps {
   readOnly?: boolean
 }
 
-export const cellCallback = (cellValue: unknown, properties: OpenAPIV3.SchemaObject) => {
+export const cellCallback = (info: any, properties: OpenAPIV3.SchemaObject, resourceId: string) => {
   return (
     <ResourceTableCell
-      value={cellValue}
+      value={info.getValue()}
       properties={properties}
+      accessor={info.column.id}
+      row={info.row.original}
+      resource={resourceId}
     />
   )
 }
 
-const ResourceList: FC<ResourceListProps> = ({ resourceName, readOnly, hrefResolver }) => {
+const ResourceList: FC<ResourceListProps> = ({ resourceName, readOnly, filters, hrefResolver }) => {
   const location = useLocation()
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
@@ -210,13 +213,15 @@ const ResourceList: FC<ResourceListProps> = ({ resourceName, readOnly, hrefResol
   )
 
   const listOptions = useMemo(() => {
-    return parse(location.search.slice(1)) as ServiceListOptions
-  }, [location.search])
+    return { ...(parse(location.search.slice(1)) as ServiceListOptions), ...filters }
+  }, [filters, location.search])
 
   const resolveHref = useCallback(
     (rowData: any) => {
       if (!rowData?.ID) return ''
-      if (hrefResolver) hrefResolver(rowData)
+      if (hrefResolver) {
+        return hrefResolver(rowData)
+      }
       return `${location.pathname}/${rowData?.ID}`
     },
     [location.pathname, hrefResolver]
@@ -242,6 +247,7 @@ const ResourceList: FC<ResourceListProps> = ({ resourceName, readOnly, hrefResol
     <>
       {!allowed && <NoAccessMessage resourceName={resourceName} />}
       <ListView
+        key={resourceName}
         columnDef={tableOverrides[resourceName] ? sortedOverrideColumns : dynamicColumns}
         itemHrefResolver={resolveHref}
         parameters={routeParams}
